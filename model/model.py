@@ -128,4 +128,30 @@ class Model:
             self._ricorsione(parziale,N)
             parziale.pop()
 
+"""
+Punto 1:
+- nodi = registi (director_mapping + names) con almeno un film del genere con >= V voti
+- un oggetto Regista per id: se non è nell'idMap lo creo, poi aggiungo il film;
+  i voti si sommano solo se il film è nuovo per quel regista
+- interpreti dei registi con una query sola: director_mapping e role_mapping
+  uniti sullo stesso film (d.movie_id = rm.movie_id), DISTINCT
+- archi = interpreti in comune (combinations e intersezione dei set)
+- Stampa Info: number_connected_components, max(connected_components, key=len),
+  registi della più grande in ordine alfabetico con numero di film
+
+Punto 2:
+- N registi, primo fissato, ognuno in una componente connessa DIVERSA,
+  massima somma dei voti (stile Chinook 29/06/2026 B)
+- _compId = {regista: indice componente} con enumerate(connected_components)
+- usate = {_compId[p] for p in parziale}; scarto se _compId[nodo] in usate
+- caso finale len(parziale) == N: confronto con il best e return SEMPRE
+- ERRORI FATTI: _ricorsione(nodo, N) invece di _ricorsione(parziale, N);
+  "nodo in usate" invece di "_compId[nodo] in usate" (confronta un regista con dei numeri)
+
+Controllo Action, V=10000: 105 nodi, 80 archi, 48 componenti (max 24)
+Anthony Russo N=2 -> 1929101 (con James Mangold, NON Joe Russo) | N=3 -> 2480346
+
+
+
+"""
 
